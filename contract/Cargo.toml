@@ -1,0 +1,36 @@
+[package]
+name = "stamping_contract"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+ink = { version = "4.3.0", default-features = false }
+scale = { package = "parity-scale-codec", version = "3.7", default-features = false, features = ["derive"] }
+scale-info = { version = "2.11.6", default-features = false, features = ["derive"] }
+
+[lib]
+crate-type = [
+    "cdylib",
+    "rlib",
+]
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+opt-level = "z"
+lto = true
+debug = false
+
+[profile.release.build-override]
+opt-level = 3
+debug = false 
